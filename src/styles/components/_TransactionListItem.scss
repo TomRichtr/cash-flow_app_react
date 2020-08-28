@@ -1,0 +1,100 @@
+.income {
+  color: green;
+
+  padding: $s-size;
+  &:hover {
+    color: green;
+    text-decoration: none;
+  }
+}
+
+.expense {
+  color: red;
+  padding: $s-size;
+  &:hover {
+    color: red;
+    text-decoration: none;
+  }
+}
+
+.transaction-item-line {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.list-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 2px;
+}
+
+.list-item.expense {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 2px;
+  transition: background 0.5s ease;
+  background-color: transparentize($color: red, $amount: 0.9);
+  &:hover {
+    color: red;
+    text-decoration: none;
+    background-color: transparentize($color: red, $amount: 0.8);
+  }
+}
+
+.list-item.income {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 2px;
+  transition: background 0.5s ease;
+  background-color: transparentize($color: green, $amount: 0.9);
+  &:hover {
+    color: green;
+    text-decoration: none;
+    background-color: transparentize($color: green, $amount: 0.8);
+  }
+}
+
+.type {
+  font-size: $s-size;
+  color: black;
+  margin: 0px;
+  text-align: center;
+}
+
+.amount {
+  font-size: $s-size;
+  color: black;
+  margin: 0px;
+  text-align: right;
+  @media (max-width: $desktop-breakpoint*2) {
+    text-align: center;
+  }
+}
+
+.createdAt {
+  color: black;
+  font-size: $s-size;
+  margin: 0px;
+  text-align: center;
+}
+
+.description {
+  color: black;
+  font-size: $s-size;
+  margin: 0px;
+  text-align: center;
+}

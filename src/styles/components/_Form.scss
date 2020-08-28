@@ -1,0 +1,77 @@
+.form__button {
+  border-color: $red-color;
+  background: $green-color;
+  border-radius: 5px;
+  color: $white-color;
+  text-decoration: none;
+  height: $xl-size;
+  width: $xl-size * 3.2;
+  &:hover {
+    text-shadow: 0 0 $xs-size $white-color;
+    border-color: $green-color;
+    cursor: pointer;
+  }
+}
+
+.form__button.delete {
+  border-color: $green-color;
+  background: $red-color;
+  margin-left: $m-size;
+  &:hover {
+    text-shadow: 0 0 $xs-size $white-color;
+    border-color: $red-color;
+    cursor: pointer;
+  }
+}
+
+.form__container {
+  margin-top: $s-size;
+  margin-bottom: $s-size;
+  flex-direction: row;
+  margin-right: $m-size;
+  margin-left: $m-size;
+  padding: $s-size;
+  background-color: transparentize($color: $grey-color, $amount: 0.9);
+  transition: background 0.5s ease;
+  border-radius: 5px;
+  &:hover {
+    text-decoration: none;
+    background-color: transparentize($color: $grey-color, $amount: 0.8);
+  }
+}
+
+.button-container {
+  text-align: center;
+}
+
+.form__calendar {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 12px;
+  padding-right: 12px;
+  margin-bottom: 0px;
+  border: #bfbec3 solid 1px;
+  border-radius: 5px;
+  transition: box-shadow 0.1s ease;
+  text-align: center;
+  width: auto;
+  display: block;
+  width: 100%;
+  &:focus {
+    box-shadow: 0 0 0pt 2pt #99ccff;
+    margin-bottom: $s-size;
+  }
+}
+
+.form__type {
+  text-align: center;
+}
+
+.form__amount {
+  text-align: right;
+}
+
+.form__calendar--container {
+  height: 35px;
+  display: block;
+}

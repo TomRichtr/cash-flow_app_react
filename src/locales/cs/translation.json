@@ -1,0 +1,32 @@
+{
+  "header": {
+    "homepage-link": "Cash-Flow",
+    "signed-in-as": "Příhlášen/a jako:",
+    "log-out": "Odhlaš se"
+  },
+  "summary": {
+    "no-transactions": "Neeviduješ žádné transakce.",
+    "sum": "Váš balance je <strong>{{transactionsSumTotalFiltered}}</strong>, příčemž Vaše celkové příjmy jsou <strong>{{incomesSumTotalFiltered}}</strong> a Vaše celkové výdaje jsou <strong>{{expensesSumTotalFiltered}}</strong>.",
+    "count": "Váš počet transakcí je <strong>{{transactionsCountTotalFiltered}}</strong>, přičemž Vaš počet příjmů je <strong>{{incomesCountTotalFiltered}}</strong> a Vaš počet výdajů je <strong>{{expensesCountTotalFiltered}}</strong>.",
+    "hidden": "Je schováno <strong>{{hiddenTransactions}}</strong> transakcí, přičemž počet schovaných příjmů je <strong>{{hiddenIncomes}}</strong> a počet schováných výdajů je <strong>{{hiddenExpenses}}</strong>."
+  },
+  "404": {
+    "title": "Tato stránka neexistuje. Pokračujte prosím kliknutím na odkaz níže.",
+    "link": "Zpět na hlavní stranku."
+  },
+  "form": {
+    "date": "Datum",
+    "type": "Typ",
+    "amount": "Částka",
+    "description": "Popis",
+    "note": "Poznámka",
+    "calendar-placeholder": "Vyber datum."
+  },
+  "list-item": {
+    "income": "Příjem",
+    "expense": "Výdaj"
+  },
+  "buttons": {
+    "add-transaction": "Vlož Transakci"
+  }
+}

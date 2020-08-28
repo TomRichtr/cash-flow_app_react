@@ -1,0 +1,21 @@
+[debug] [2020-08-24T17:16:10.836Z] ----------------------------------------------------------------------
+[debug] [2020-08-24T17:16:10.840Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Trich\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2020-08-24T17:16:10.840Z] CLI Version:   8.9.0
+[debug] [2020-08-24T17:16:10.840Z] Platform:      win32
+[debug] [2020-08-24T17:16:10.841Z] Node Version:  v14.8.0
+[debug] [2020-08-24T17:16:10.851Z] Time:          Mon Aug 24 2020 19:16:10 GMT+0200 (Central European Summer Time)
+[debug] [2020-08-24T17:16:10.851Z] ----------------------------------------------------------------------
+[debug] [2020-08-24T17:16:10.851Z] 
+[debug] [2020-08-24T17:16:10.868Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-08-24T17:16:10.869Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Trich\OneDrive\Plocha\projects\budget-app
+

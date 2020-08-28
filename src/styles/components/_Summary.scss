@@ -1,0 +1,23 @@
+.summary {
+  padding: $s-size;
+  background-color: transparentize($color: $grey-color, $amount: 0.9);
+  transition: background 0.5s ease;
+  margin-bottom: $m-size;
+  border-radius: 5px;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 2px;
+  margin-top: $m-size;
+  width: 100%;
+  &:hover {
+    text-decoration: none;
+    background-color: transparentize($color: $grey-color, $amount: 0.8);
+  }
+  p {
+    margin: 0px;
+  }
+  .summary__first-row {
+    margin-bottom: $xs-size;
+    text-align: justify;
+  }
+}

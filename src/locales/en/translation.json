@@ -1,0 +1,32 @@
+{
+  "header": {
+    "homepage-link": "Cash-Flow",
+    "signed-in-as": "Signed in as:",
+    "log-out": "Log Out"
+  },
+  "summary": {
+    "no-transactions": "No transactions are listed.",
+    "sum": "Your current balance is <strong>{{transactionsSumTotalFiltered}}</strong>, while your incomes are <strong>{{incomesSumTotalFiltered}}</strong> in total and your expenses are <strong>{{expensesSumTotalFiltered}}</strong> in total.",
+    "count": "Your number of transactions is <strong>{{transactionsCountTotalFiltered}}</strong>, while your number of incomes is <strong>{{incomesCountTotalFiltered}}</strong> and your number of expenses is <strong>{{expensesCountTotalFiltered}}</strong>",
+    "hidden": "It´s hidden <strong>{{hiddenTransactions}}</strong> transactions, while number of hidden incomes is <strong>{{hiddenIncomes}}</strong> a number of hidden expenses is <strong>{{hiddenExpenses}}</strong>."
+  },
+  "404": {
+    "title": "This page doesn´t exist, please proceed further by click on link below.",
+    "link": "Back to dashboard page."
+  },
+  "form": {
+    "date": "Date",
+    "type": "Type",
+    "amount": "Amount",
+    "description": "Description",
+    "note": "Note",
+    "calendar-placeholder": "Pick a date."
+  },
+  "list-item": {
+    "income": "Income",
+    "expense": "Expense"
+  },
+  "buttons": {
+    "add-transaction": "Add Transaction"
+  }
+}

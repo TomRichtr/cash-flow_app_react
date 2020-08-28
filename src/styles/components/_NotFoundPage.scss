@@ -1,0 +1,14 @@
+.not-found {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70vw;
+  transform: translate(-50%, -50%);
+  text-align: justify;
+  .not-found__title {
+    font-size: $m-size;
+  }
+  .not-found__link {
+    font-size: $s-size;
+  }
+}

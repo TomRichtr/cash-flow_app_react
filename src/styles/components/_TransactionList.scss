@@ -1,0 +1,64 @@
+.transaction-list {
+  margin-left: $m-size;
+  margin-right: $m-size;
+}
+
+.transactions-list__filters--second-row {
+  text-align: justify;
+  color: $green-color;
+  vertical-align: middle;
+  a:hover {
+    cursor: pointer;
+    color: $red-color;
+  }
+  a {
+    position: relative;
+    top: 12px;
+  }
+}
+.form__calendar {
+  text-align: center;
+}
+.transactions-list__filters {
+  background-color: transparentize($color: $grey-color, $amount: 0.9);
+  transition: background 0.5s ease;
+  padding: $s-size;
+  border-radius: 5px;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 2px;
+  margin-top: $m-size;
+  padding-bottom: 0px;
+}
+
+.form__calendar.from {
+  @media (max-width: 575px) {
+    margin-bottom: $s-size;
+  }
+}
+
+.transactions-list__filters--first-row-input {
+  @media (max-width: 575px) {
+    margin-bottom: $s-size;
+  }
+}
+
+.dashboard__button {
+  border-color: $red-color;
+  background: linear-gradient(to bottom right, $red-color, $green-color);
+  border-radius: 5px;
+  color: $white-color;
+  text-decoration: none;
+  height: $xl-size;
+  width: $xl-size * 3.2;
+  &:hover {
+    background: linear-gradient(to bottom right, $green-color, $red-color);
+    text-shadow: 0 0 $xs-size $white-color;
+    border-color: $green-color;
+    cursor: pointer;
+  }
+}
+
+.reset {
+  text-align: right;
+}

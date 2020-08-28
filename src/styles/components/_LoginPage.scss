@@ -1,0 +1,31 @@
+.l-background {
+  background: url("/bg.jpg");
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.l-background__box {
+  background: fade-out($color: white, $amount: 0.3);
+  border-radius: 5px;
+  padding: $m-size;
+}
+
+.log-in__buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 400px;
+  margin-top: $l-size;
+}
+
+.register-link {
+  text-align: center;
+  display: block;
+}
+
+.log-in__button-1 {
+  width: 159.083px;
+}
