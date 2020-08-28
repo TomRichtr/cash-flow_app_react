@@ -10,7 +10,8 @@
 
 # production
 /build
-\src\firebase\env.js
+src/**/env.js
+
 
 # misc
 .DS_Store
