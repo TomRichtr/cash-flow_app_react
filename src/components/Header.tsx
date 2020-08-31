@@ -62,6 +62,7 @@ export const Header = () => {
           className="header-left-side__secondary-link-text"
         >
           {t("header.log-out")}
+          {error}
         </Link>
         <Link
           className="header-left-side__secondary-link-icon"

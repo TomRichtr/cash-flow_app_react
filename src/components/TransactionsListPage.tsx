@@ -257,7 +257,9 @@ export const TransactionsListPage = () => {
     e.preventDefault();
     history.push("/edit_transaction/" + id);
   };
-  const onClickReset = () => {
+
+  const onClickReset = (e: any) => {
+    e.preventDefault();
     dispatch(resetFilters());
     setToState(undefined);
     setFromState(undefined);
@@ -376,7 +378,7 @@ export const TransactionsListPage = () => {
               }}
             />
           </Col>
-          <Col sm="7">
+          <Col sm="6">
             <Form.Control
               className="sorting"
               onChange={(e: any) => onChoiceSetSorting(e.target.value)}
@@ -388,8 +390,13 @@ export const TransactionsListPage = () => {
               <option value="date">{t("filters.sort.sortByDate")}</option>
             </Form.Control>
           </Col>
-          <Col className="transactions-list__filters--second-row reset" sm="1">
-            <a onClick={() => onClickReset()}>Reset</a>
+          <Col className="transactions-list__filters--second-row reset" sm="2">
+            <button
+              className="reset-link"
+              onClick={(e: any) => onClickReset(e)}
+            >
+              Reset
+            </button>
           </Col>
         </Form.Group>
       </Form>

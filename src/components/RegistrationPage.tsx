@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import { logInfo } from "../actions/auth";
 import { useDispatch } from "react-redux";
 import { firebase } from "../firebase/firebase";
+import Flag from "react-world-flags";
 
 export const RegistrationPage = () => {
   const { t, i18n } = useTranslation();
@@ -16,6 +17,10 @@ export const RegistrationPage = () => {
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVerify] = useState("");
   const [error, setErrors] = useState("");
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+  };
 
   const handleForm = (e: any) => {
     e.preventDefault();
@@ -45,10 +50,31 @@ export const RegistrationPage = () => {
 
   return (
     <div className="l-background">
+      <div className="log-in-flags">
+        <button
+          className="header-right-side__language-button"
+          onClick={() => {
+            changeLanguage("en");
+          }}
+        >
+          <Flag code="gb" height="20" width="30" />
+        </button>
+        <button
+          className="header-right-side__language-button"
+          onClick={() => {
+            changeLanguage("cs");
+          }}
+        >
+          <Flag code="cz" height="20" width="30" />
+        </button>
+      </div>
       <div className="l-background__box">
+        <div className="l-background__box title">
+          <span>C</span>A<span>S</span>H<span> F</span>L<span>O</span>W
+        </div>
         <Form onSubmit={(e: any) => handleForm(e)}>
           <Form.Group controlId="formBasicEmail">
-            <Form.Label>Insert email address</Form.Label>
+            <Form.Label>{t("login.chooseEmail")}</Form.Label>
             <Form.Control
               type="email"
               name="email"
@@ -58,7 +84,7 @@ export const RegistrationPage = () => {
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
-            <Form.Label>Choose your password</Form.Label>
+            <Form.Label>{t("login.password")}</Form.Label>
             <Form.Control
               name="password"
               type="password"
@@ -69,7 +95,7 @@ export const RegistrationPage = () => {
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
-            <Form.Label>Insert password again</Form.Label>
+            <Form.Label>{t("login.passwordVerification")}</Form.Label>
             <Form.Control
               name="passwordVerify"
               type="password"
@@ -85,12 +111,12 @@ export const RegistrationPage = () => {
               variant="primary"
               type="submit"
             >
-              Sign Up
+              {t("login.SignUp")}
             </Button>
           </Form.Group>
         </Form>
         <Link className="register-link" to="/">
-          Already have an account? Please click here.
+          {t("login.backToLoginPage")}
         </Link>
       </div>
     </div>

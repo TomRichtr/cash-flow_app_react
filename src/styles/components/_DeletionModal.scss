@@ -1,0 +1,51 @@
+.modal__container {
+  height: 50vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-box {
+  background: fade-out($color: white, $amount: 0.3);
+  border-radius: 5px;
+  padding: $m-size;
+  min-width: 300px;
+  padding: $s-size;
+  background-color: transparentize($color: $grey-color, $amount: 0.9);
+  transition: background 0.5s ease;
+  margin-bottom: $m-size;
+  margin-left: $m-size;
+  margin-right: $m-size;
+  border-radius: 5px;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 2px;
+  margin-top: $m-size;
+  max-width: 50%;
+  text-align: center;
+  &:hover {
+    text-decoration: none;
+    background-color: transparentize($color: $grey-color, $amount: 0.8);
+  }
+  p {
+    margin: 0px;
+    margin-bottom: $s-size;
+    text-align: justify;
+    text-align: center;
+  }
+  @media (max-width: $desktop-breakpoint) {
+    margin-left: $m-size;
+    margin-right: $m-size;
+  }
+  button {
+    height: $xl-size;
+    width: $xl-size * 3.2;
+  }
+}
+
+.modal-box-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: $m-size;
+}

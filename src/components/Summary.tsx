@@ -25,17 +25,14 @@ export const Summary = (props: any) => {
         }
       >
         <Trans
-          i18nKey="summary.sum"
+          i18nKey="summary.sum-transactions"
           values={{
             transactionsSumTotalFiltered: numeral(
               props.transactionsSumTotalFiltered
             ).format("$0,00.00"),
-            incomesSumTotalFiltered: numeral(
-              props.incomesSumTotalFiltered
-            ).format("$0,00.00"),
-            expensesSumTotalFiltered: numeral(
-              props.expensesSumTotalFiltered
-            ).format("$0,00.00"),
+            transactionsCountTotalFiltered:
+              props.transactionsCountTotalFiltered,
+            hiddenTransactions: hiddenTransactions,
           }}
           components={{ bold: <strong /> }}
         ></Trans>
@@ -46,37 +43,33 @@ export const Summary = (props: any) => {
         }
       >
         <Trans
-          i18nKey="summary.count"
+          i18nKey="summary.sum-incomes"
           values={{
-            transactionsCountTotalFiltered:
-              props.transactionsCountTotalFiltered,
+            incomesSumTotalFiltered: numeral(
+              props.incomesSumTotalFiltered
+            ).format("$0,00.00"),
             incomesCountTotalFiltered: props.incomesCountTotalFiltered,
-            expensesCountTotalFiltered: props.expensesCountTotalFiltered,
+            hiddenIncomes: hiddenIncomes,
           }}
           components={{ bold: <strong /> }}
         ></Trans>
       </p>
       <p
         className={
-          formattedTransactionsCount > 0 ? "summary__second-row" : "hidden"
+          formattedTransactionsCount > 0 ? "summary__first-row" : "hidden"
         }
       >
         <Trans
-          i18nKey="summary.hidden"
+          i18nKey="summary.sum-expenses"
           values={{
-            hiddenTransactions: hiddenTransactions,
-            hiddenIncomes: hiddenIncomes,
+            expensesSumTotalFiltered: numeral(
+              Math.abs(props.expensesSumTotalFiltered)
+            ).format("$0,00.00"),
+            expensesCountTotalFiltered: props.expensesCountTotalFiltered,
             hiddenExpenses: hiddenExpenses,
           }}
           components={{ bold: <strong /> }}
         ></Trans>
-      </p>
-      <p
-        className={
-          formattedTransactionsCount > 0 ? "hidden" : "summary__second-row"
-        }
-      >
-        {t("summary.no-transactions")}
       </p>
     </div>
   );

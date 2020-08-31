@@ -11,6 +11,10 @@
     border-color: $green-color;
     cursor: pointer;
   }
+  @media (max-width: $desktop-breakpoint) {
+    width: 100%;
+    margin-top: $m-size;
+  }
 }
 
 .form__button.delete {
@@ -21,6 +25,11 @@
     text-shadow: 0 0 $xs-size $white-color;
     border-color: $red-color;
     cursor: pointer;
+  }
+  @media (max-width: $desktop-breakpoint) {
+    width: 100%;
+    margin: 0px;
+    margin-top: $s-size;
   }
 }
 

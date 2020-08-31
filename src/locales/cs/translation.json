@@ -41,5 +41,27 @@
       "sortByDate": "Seřaď dle datumu",
       "sortByAmount": "Seřaď dle částky"
     }
+  },
+  "login": {
+    "email": "Emailová adresa",
+    "password": "Heslo",
+    "login": "Vstupte",
+    "loginGoogle": "Vstupte s googlem",
+    "registration": "Nemáte účet? Zaregistrujte se.",
+    "resetPassword": "Zapoměli jste heslo? Klikněte zde.",
+    "choosePassoword": "Zvolte si své heslo.",
+    "chooseEmail": "Vložte email.",
+    "passwordVerification": "Vložte své heslo znovu.",
+    "SignUp": "Registrovat se",
+    "registrationBackLink": "Máte již účet? Klikněte zde.",
+    "resetPasswordButton": "Resetovat heslo",
+    "backToLoginPage": "Zpět na přihlašovací obrazovku.",
+    "emailPlaceholder": "Vlož email",
+    "passwordPlaceholder": "Vlož heslo"
+  },
+  "modal": {
+    "warningSentence": "Jste si jistá/jistý? Vymazané transakce není možné obnovit.",
+    "back": "Zpět k úpravě",
+    "delete": "Smazat"
   }
 }

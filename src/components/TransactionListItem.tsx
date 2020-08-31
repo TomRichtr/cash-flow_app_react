@@ -8,7 +8,7 @@ import Col from "react-bootstrap/Col";
 require("moment/locale/cs");
 
 export const TransactionListItem = (transaction: TransactionState) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const convertedDate = () => {
     return moment(transaction.createdAt).format("DD.MM.YYYY");
   };

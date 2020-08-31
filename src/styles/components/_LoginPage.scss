@@ -12,12 +12,16 @@
   background: fade-out($color: white, $amount: 0.3);
   border-radius: 5px;
   padding: $m-size;
+  min-width: 300px;
+  @media (max-width: $desktop-breakpoint) {
+    margin-left: $m-size;
+    margin-right: $m-size;
+  }
 }
 
 .log-in__buttons {
   display: flex;
   justify-content: space-around;
-  width: 400px;
   margin-top: $l-size;
 }
 
@@ -28,4 +32,28 @@
 
 .log-in__button-1 {
   width: 159.083px;
+}
+
+.register-link.bottom {
+  margin-top: $s-size;
+}
+
+.log-in-flags {
+  position: absolute;
+  top: $s-size;
+  right: $m-size;
+}
+
+.login-title {
+  background: none;
+  justify-content: center;
+  font-size: $l-size;
+  text-align: center;
+  color: $green-color;
+  padding: 0px;
+  margin: 0px;
+  padding-bottom: $s-size;
+  span {
+    color: $red-color;
+  }
 }

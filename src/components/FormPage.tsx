@@ -16,6 +16,8 @@ import { DateUtils } from "react-day-picker";
 import moment from "moment";
 import { database } from "../firebase/firebase";
 import { v4 as uuidv4 } from "uuid";
+import { DeletionModal } from "./DeletionModal";
+
 require("moment/locale/cs");
 
 export interface UseFormInputs {
@@ -49,14 +51,10 @@ export const FormPage = (props: any) => {
   >();
 
   const [uid, setUID] = useState("");
-  const [transactionToEdit, setTransactionToEdit] = useState({});
+  const [modal, setModal] = useState(false);
   const authenticationInfo = useSelector(
     (state: RootState) => state.authsReducer
   );
-
-  useEffect(() => {
-    setUID(authenticationInfo.uid);
-  }, []);
 
   // const dispatch = useDispatch();
   const history = useHistory();
@@ -126,6 +124,7 @@ export const FormPage = (props: any) => {
   };
 
   const onSubmitEdit = (updates: any) => {
+    const transactionToEdit = {};
     if (transactionToEdit !== undefined) {
       const dateToInput =
         updates.createdAt.length === 10
@@ -180,134 +179,139 @@ export const FormPage = (props: any) => {
       }
     };
     setEditTransaction();
+    setUID(authenticationInfo.uid);
   }, []);
 
   return (
-    <div className="form__container">
-      <Form
-        className="form"
-        onSubmit={handleSubmit(
-          props.match.params.id === undefined ? onSubmitNew : onSubmitEdit
-        )}
-      >
-        <Form.Group as={row} className="form__type--container">
-          <Form.Label column sm="2">
-            {t("form.type")}
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control
-              className="form__type"
-              as="select"
-              name="type"
-              ref={register({ required: true })}
-              defaultValue={""}
-            >
-              <option disabled value="">
-                Choose a type
-              </option>
-              <option value="income">{t("list-item.income")}</option>
-              <option value="expense">{t("list-item.expense")}</option>
-            </Form.Control>
-            {errors.type && "This is required field."}
-          </Col>
-        </Form.Group>
-        <Form.Group as={row} className="form__amount--container">
-          <Form.Label column sm="2">
-            {t("form.amount")}
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control
-              name="amount"
-              className="form__amount"
-              ref={register({
-                required: true,
-                pattern: /^[+-]?[0-9]{1,9}(?:\.[0-9]{1,2})?$/,
-              })}
-            />
-            {errors.amount && errors.amount.type === "required" && (
-              <span>This is required field.</span>
-            )}
-            {errors.amount && errors.amount.type === "pattern" && (
-              <span>Only a number with two decimals can be used.</span>
-            )}
-          </Col>
-        </Form.Group>
-        <Form.Group as={row}>
-          <Form.Label column sm="2">
-            {t("form.date")}
-          </Form.Label>
-          <Col sm="10" className="form__calendar--container">
-            <Controller
-              control={control}
-              className="form__calendar"
-              name="createdAt"
-              render={({ onChange, value }) => (
-                <DayPickerInput
-                  onDayChange={onChange}
-                  value={value}
-                  formatDate={formatDate}
-                  format={FORMAT}
-                  parseDate={parseDate}
-                  placeholder={t("form.calendar-placeholder")}
-                  inputProps={{
-                    className: "form__calendar",
-                    style: { width: "100%" },
-                  }}
-                  dayPickerProps={{
-                    months: MONTHS,
-                    weekdaysShort: WEEKDAYS_SHORT,
-                  }}
-                />
+    <div className={modal ? "modal__container" : "form__container"}>
+      {modal ? (
+        <DeletionModal id={props.match.params.id} />
+      ) : (
+        <Form
+          className="form"
+          onSubmit={handleSubmit(
+            props.match.params.id === undefined ? onSubmitNew : onSubmitEdit
+          )}
+        >
+          <Form.Group as={row} className="form__type--container">
+            <Form.Label column sm="2">
+              {t("form.type")}
+            </Form.Label>
+            <Col sm="10">
+              <Form.Control
+                className="form__type"
+                as="select"
+                name="type"
+                ref={register({ required: true })}
+                defaultValue={""}
+              >
+                <option disabled value="">
+                  Choose a type
+                </option>
+                <option value="income">{t("list-item.income")}</option>
+                <option value="expense">{t("list-item.expense")}</option>
+              </Form.Control>
+              {errors.type && "This is required field."}
+            </Col>
+          </Form.Group>
+          <Form.Group as={row} className="form__amount--container">
+            <Form.Label column sm="2">
+              {t("form.amount")}
+            </Form.Label>
+            <Col sm="10">
+              <Form.Control
+                name="amount"
+                className="form__amount"
+                ref={register({
+                  required: true,
+                  pattern: /^[+-]?[0-9]{1,9}(?:\.[0-9]{1,2})?$/,
+                })}
+              />
+              {errors.amount && errors.amount.type === "required" && (
+                <span>This is required field.</span>
               )}
-            />
-            <p className="form__date--error-message">
-              {errors.createdAt && "This is required field."}
-            </p>
-          </Col>
-        </Form.Group>
+              {errors.amount && errors.amount.type === "pattern" && (
+                <span>Only a number with two decimals can be used.</span>
+              )}
+            </Col>
+          </Form.Group>
+          <Form.Group as={row}>
+            <Form.Label column sm="2">
+              {t("form.date")}
+            </Form.Label>
+            <Col sm="10" className="form__calendar--container">
+              <Controller
+                control={control}
+                className="form__calendar"
+                name="createdAt"
+                render={({ onChange, value }) => (
+                  <DayPickerInput
+                    onDayChange={onChange}
+                    value={value}
+                    formatDate={formatDate}
+                    format={FORMAT}
+                    parseDate={parseDate}
+                    placeholder={t("form.calendar-placeholder")}
+                    inputProps={{
+                      className: "form__calendar",
+                      style: { width: "100%" },
+                    }}
+                    dayPickerProps={{
+                      months: MONTHS,
+                      weekdaysShort: WEEKDAYS_SHORT,
+                    }}
+                  />
+                )}
+              />
+              <p className="form__date--error-message">
+                {errors.createdAt && "This is required field."}
+              </p>
+            </Col>
+          </Form.Group>
 
-        <Form.Group as={row} className="form__description--container">
-          <Form.Label column sm="2">
-            {t("form.description")}
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control
-              className=""
-              name="description"
-              ref={register({ required: true, maxLength: 100 })}
-            />
-            {errors.description && "This is required field."}
-          </Col>
-        </Form.Group>
-        <Form.Group as={row}>
-          <Form.Label column sm="2">
-            {t("form.note")}
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control
-              as="textarea"
-              rows={4}
-              className=""
-              name="note"
-              ref={register({ maxLength: 1000 })}
-            />
-          </Col>
-        </Form.Group>
-        <div className="button-container">
-          <input className="form__button" type="submit" value="Submit" />
+          <Form.Group as={row} className="form__description--container">
+            <Form.Label column sm="2">
+              {t("form.description")}
+            </Form.Label>
+            <Col sm="10">
+              <Form.Control
+                className=""
+                name="description"
+                ref={register({ required: true, maxLength: 100 })}
+              />
+              {errors.description && "This is required field."}
+            </Col>
+          </Form.Group>
+          <Form.Group as={row}>
+            <Form.Label column sm="2">
+              {t("form.note")}
+            </Form.Label>
+            <Col sm="10">
+              <Form.Control
+                as="textarea"
+                rows={4}
+                className=""
+                name="note"
+                ref={register({ maxLength: 1000 })}
+              />
+            </Col>
+          </Form.Group>
+          <div className="button-container">
+            <input className="form__button" type="submit" value="Submit" />
 
-          <button
-            className={
-              props.match.params.id === undefined
-                ? "hidden"
-                : "form__button delete"
-            }
-            onClick={onDeleteClick}
-          >
-            Delete
-          </button>
-        </div>
-      </Form>
+            <button
+              className={
+                props.match.params.id === undefined
+                  ? "hidden"
+                  : "form__button delete"
+              }
+              onClick={() => setModal(true)}
+            >
+              Delete
+            </button>
+          </div>
+        </Form>
+      )}
     </div>
   );
 };

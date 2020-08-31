@@ -7,30 +7,21 @@ import "normalize.css/normalize.css";
 import "./styles/styles.scss";
 import { Provider } from "react-redux";
 import { store, persistor } from "./store/configureStore";
-import { LoadingPage } from "../src/components/LoadingPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { PersistGate } from "redux-persist/integration/react";
+import { ModalProvider } from "react-modal-hook";
 
-ReactDOM.render(<LoadingPage />, document.getElementById("root"));
-
-let hasRendered = false;
-
-const renderApp = () => {
-  if (!hasRendered) {
-    ReactDOM.render(
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <React.StrictMode>
-            <App />
-          </React.StrictMode>
-        </PersistGate>
-      </Provider>,
-      document.getElementById("root")
-    );
-    hasRendered = true;
-  }
-};
-
-renderApp();
+ReactDOM.render(
+  <ModalProvider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </PersistGate>
+    </Provider>
+  </ModalProvider>,
+  document.getElementById("root")
+);
 
 serviceWorker.unregister();
