@@ -20,7 +20,8 @@
     "amount": "Amount",
     "description": "Description",
     "note": "Note",
-    "calendar-placeholder": "Pick a date."
+    "calendar-placeholder": "Pick a date.",
+    "typePlaceholder": "Choose a type"
   },
   "list-item": {
     "income": "Income",
@@ -28,5 +29,17 @@
   },
   "buttons": {
     "add-transaction": "Add Transaction"
+  },
+  "filters": {
+    "typeSelect": {
+      "allTransactions": "All transactions",
+      "incomes": "Incomes",
+      "expenses": "Expenses"
+    },
+    "textFilter": "Filter by description",
+    "sort": {
+      "sortByDate": "Sort by date",
+      "sortByAmount": "Sort by amount"
+    }
   }
 }

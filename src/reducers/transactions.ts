@@ -1,14 +1,14 @@
 import {
   AddTransaction,
-  TransactionsState,
+  TransactionState,
   RemoveTransaction,
   EditTransaction,
 } from "../actions/transactions";
 
 export default (
-  state: TransactionsState[] = [],
+  state: TransactionState[] = [],
   action: AddTransaction | RemoveTransaction | EditTransaction
-): TransactionsState[] => {
+): TransactionState[] => {
   switch (action.type) {
     case "ADD_TRANSACTION":
       return [...state, action.transaction];

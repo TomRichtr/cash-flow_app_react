@@ -1,11 +1,11 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import filtersReducer from "../reducers/filters";
-import transactionsReducer from "../reducers/transactions";
+// import transactionsReducer from "../reducers/transactions";
 import authsReducer from "../reducers/auth";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { persistStore, persistReducer } from "redux-persist";
 import localForage from "localforage";
-import { TransactionsState, FiltersState, LogState } from "../actions";
+import { TransactionState, FiltersState, LogState } from "../actions";
 
 const persistConfig = {
   key: "root13",
@@ -15,7 +15,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(
   persistConfig,
   combineReducers({
-    transactionsReducer,
+    // transactionsReducer,
     filtersReducer,
     authsReducer,
   })
@@ -29,7 +29,7 @@ export const store = createStore(
 export const persistor = persistStore(store);
 
 export type RootState = {
-  transactionsReducer: TransactionsState[];
+  transactionsReducer: TransactionState[];
   filtersReducer: FiltersState;
   authsReducer: LogState;
 };

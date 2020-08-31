@@ -1,18 +1,17 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { TransactionsState } from "../actions/transactions";
+import { TransactionState } from "../actions/transactions";
 import numeral from "numeral";
 import "../locales/numeral";
 import moment from "moment";
 import Col from "react-bootstrap/Col";
 require("moment/locale/cs");
 
-export const TransactionListItem = (transaction: TransactionsState) => {
+export const TransactionListItem = (transaction: TransactionState) => {
   const { t, i18n } = useTranslation();
   const convertedDate = () => {
     return moment(transaction.createdAt).format("DD.MM.YYYY");
   };
-
   moment.updateLocale("cs", {
     monthsShort: [
       "leden",
@@ -45,7 +44,7 @@ export const TransactionListItem = (transaction: TransactionsState) => {
         <Col sm="2">
           <p className="list-item__top type">{type}</p>
         </Col>
-        <Col sm="3">
+        <Col sm="2">
           <p className="list-item__top createdAt">{convertedDate()}</p>
         </Col>
         <Col sm="5">
@@ -53,7 +52,7 @@ export const TransactionListItem = (transaction: TransactionsState) => {
             {transaction.description}
           </p>
         </Col>
-        <Col sm="2">
+        <Col sm="3">
           <p className="list-item__top amount">
             {numeral(transaction.amount).format("$0,00.00")}
           </p>

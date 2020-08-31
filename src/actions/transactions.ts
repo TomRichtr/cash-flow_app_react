@@ -1,19 +1,19 @@
-export interface TransactionsState {
+export interface TransactionState {
   id: any;
   type: string;
   amount: number;
-  createdAt: string;
+  createdAt: number;
   note: string;
   description: string;
 }
 
 export interface AddTransaction {
   type: "ADD_TRANSACTION";
-  transaction: TransactionsState;
+  transaction: TransactionState;
 }
 
 export const addTransaction = (
-  transaction: TransactionsState
+  transaction: TransactionState
 ): AddTransaction => ({
   type: "ADD_TRANSACTION",
   transaction: {
@@ -34,12 +34,12 @@ export const removeTransaction = (id: any): RemoveTransaction => ({
 export interface EditTransaction {
   type: "EDIT_TRANSACTION";
   id: any;
-  updates: TransactionsState;
+  updates: TransactionState;
 }
 
 export const editTransaction = (
   id: any,
-  updates: TransactionsState
+  updates: TransactionState
 ): EditTransaction => ({
   type: "EDIT_TRANSACTION",
   id,

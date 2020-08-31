@@ -2,8 +2,8 @@ export interface FiltersState {
   text: string;
   types: string;
   sortBy: string;
-  from: string | undefined;
-  to: string | undefined;
+  from: string;
+  to: string;
 }
 export interface SetTextFilter {
   type: "SET_TEXT_FILTER";

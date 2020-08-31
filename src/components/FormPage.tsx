@@ -2,16 +2,11 @@ import Col from "react-bootstrap/Col";
 import React, { useEffect, useState } from "react";
 import row from "react-bootstrap/row";
 import { RootState } from "../store/configureStore";
-import { addTransaction } from "../actions/transactions";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import {
-  TransactionsState,
-  editTransaction,
-  removeTransaction,
-} from "../actions/transactions";
+import { TransactionState } from "../actions/transactions";
 import Form from "react-bootstrap/Form";
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import "react-day-picker/lib/style.css";
@@ -25,7 +20,7 @@ require("moment/locale/cs");
 
 export interface UseFormInputs {
   amount: number;
-  createdAt: string;
+  createdAt: number;
   description: string;
   id: string;
   note: string;
@@ -52,22 +47,18 @@ export const FormPage = (props: any) => {
   const { register, handleSubmit, reset, control, errors } = useForm<
     UseFormInputs
   >();
-  //@ts-ignore
+
   const [uid, setUID] = useState("");
   const [transactionToEdit, setTransactionToEdit] = useState({});
   const authenticationInfo = useSelector(
-    //ts-ignore
     (state: RootState) => state.authsReducer
   );
 
   useEffect(() => {
-    //ts-ignore
-    console.log(authenticationInfo.uid);
-    //ts-ignore
     setUID(authenticationInfo.uid);
   }, []);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const history = useHistory();
   const FORMAT = "dd.MM.yyyy";
   moment.updateLocale("cs", {
@@ -109,20 +100,20 @@ export const FormPage = (props: any) => {
       ? ["Po", "Út", "St", "Čt", "Pá", "So", "Ne"]
       : undefined;
 
-  const onSubmitNew = (transaction: TransactionsState) => {
+  const onSubmitNew = (transaction: TransactionState) => {
     const transactionId = uuidv4();
-    const dateToInput = Date.parse(transaction.createdAt);
+    const dateToInput = Date.parse(transaction.createdAt.toString());
     const amountToInput =
       transaction.type === "income"
         ? transaction.amount * 1 // added to prevent redux accepting value as the string
         : transaction.amount * -1;
-    dispatch(
-      addTransaction({
-        ...transaction,
-        amount: amountToInput,
-        id: transactionId,
-      })
-    );
+    // dispatch(
+    //   addTransaction({
+    //     ...transaction,
+    //     amount: amountToInput,
+    //     id: transactionId,
+    //   })
+    // );
     database
       .collection(uid)
       .doc(transactionId)
@@ -134,41 +125,61 @@ export const FormPage = (props: any) => {
     history.push("/dashboard");
   };
 
-  const onSubmitEdit = (updates: TransactionsState) => {
+  const onSubmitEdit = (updates: any) => {
     if (transactionToEdit !== undefined) {
+      const dateToInput =
+        updates.createdAt.length === 10
+          ? Date.parse(
+              new Date(
+                updates.createdAt.slice(6, 10),
+                updates.createdAt.slice(3, 5) - 1, //january is 0 indexed
+                updates.createdAt.slice(0, 2)
+              ).toString()
+            )
+          : Date.parse(updates.createdAt.toString());
       const amountToInput =
         updates.amount < 0
           ? updates.amount * 1
           : updates.type === "income"
           ? updates.amount * 1
           : updates.amount * -1; //making sure that edited income, will remain negative, no matter of users input
-      dispatch(
-        editTransaction(props.match.params.id, {
-          ...updates,
-          amount: amountToInput,
-        })
-      );
+      // dispatch(
+      //   editTransaction(props.match.params.id, {
+      //     ...updates,
+      //     amount: amountToInput,
+      //   })
+      // );
       database
         .collection(uid)
         .doc(props.match.params.id)
-        .set({ ...updates, amount: amountToInput });
+        .set({ ...updates, amount: amountToInput, createdAt: dateToInput });
       history.push("/dashboard");
     }
   };
 
   const onDeleteClick = () => {
-    dispatch(removeTransaction(props.match.params.id));
+    // dispatch(removeTransaction(props.match.params.id));
     database.collection(uid).doc(props.match.params.id).delete();
     history.push("/dashboard");
   };
 
   useEffect(() => {
-    if (props.match.params.id !== undefined) {
-      const transactionToEdit = database
-        .collection(authenticationInfo.uid)
-        .doc(props.match.params.id);
-      reset(transactionToEdit);
-    }
+    const setEditTransaction = async () => {
+      if (props.match.params.id !== undefined) {
+        const transactionToEdit = database
+          .collection(authenticationInfo.uid)
+          .doc(props.match.params.id);
+        const doc = await transactionToEdit.get();
+        const transactionToLoad = doc.data();
+        //@ts-ignore
+        const dateToInput = moment(transactionToLoad.createdAt).format(
+          "DD.MM.YYYY"
+        );
+        //@ts-ignore
+        reset({ ...transactionToLoad, createdAt: dateToInput });
+      }
+    };
+    setEditTransaction();
   }, []);
 
   return (

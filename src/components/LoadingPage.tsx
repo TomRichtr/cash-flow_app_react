@@ -6,11 +6,6 @@ export const LoadingPage = () => {
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
   };
-  console.log("Loading");
 
-  return (
-    <div>
-      <div>Loading</div>
-    </div>
-  );
+  return <div className="l-background"></div>;
 };

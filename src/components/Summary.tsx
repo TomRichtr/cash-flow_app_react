@@ -1,10 +1,7 @@
 import React from "react";
 import { useTranslation, Trans } from "react-i18next";
-import "react-day-picker/lib/style.css";
-import dateFnsFormat from "date-fns/format";
-import dateFnsParse from "date-fns/parse";
-import { DateUtils } from "react-day-picker";
 import "../locales/numeral";
+import numeral from "numeral";
 
 export const Summary = (props: any) => {
   //localization
@@ -19,6 +16,7 @@ export const Summary = (props: any) => {
   const hiddenIncomes = formattedIncomesCount - props.incomesCountTotalFiltered;
   const hiddenExpenses =
     formattedExpensesCount - props.expensesCountTotalFiltered;
+
   return (
     <div className="summary">
       <p
@@ -29,9 +27,15 @@ export const Summary = (props: any) => {
         <Trans
           i18nKey="summary.sum"
           values={{
-            transactionsSumTotalFiltered: props.transactionsSumTotalFiltered,
-            incomesSumTotalFiltered: props.incomesSumTotalFiltered,
-            expensesSumTotalFiltered: props.expensesSumTotalFiltered,
+            transactionsSumTotalFiltered: numeral(
+              props.transactionsSumTotalFiltered
+            ).format("$0,00.00"),
+            incomesSumTotalFiltered: numeral(
+              props.incomesSumTotalFiltered
+            ).format("$0,00.00"),
+            expensesSumTotalFiltered: numeral(
+              props.expensesSumTotalFiltered
+            ).format("$0,00.00"),
           }}
           components={{ bold: <strong /> }}
         ></Trans>

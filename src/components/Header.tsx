@@ -43,7 +43,7 @@ export const Header = () => {
   };
 
   return (
-    <div className="header">
+    <div className="header sticky-top">
       <div className="header-left-side">
         <Link className="header-left-side__main-link" to="/dashboard">
           {t("header.homepage-link")}

@@ -20,7 +20,8 @@
     "amount": "Částka",
     "description": "Popis",
     "note": "Poznámka",
-    "calendar-placeholder": "Vyber datum."
+    "calendar-placeholder": "Vyber datum.",
+    "typePlaceholder": "Vyber typ"
   },
   "list-item": {
     "income": "Příjem",
@@ -28,5 +29,17 @@
   },
   "buttons": {
     "add-transaction": "Vlož Transakci"
+  },
+  "filters": {
+    "typeSelect": {
+      "allTransactions": "Všechny transakce",
+      "incomes": "Příjmy",
+      "expenses": "Výdaje"
+    },
+    "textFilter": "Filtruj dle popisu",
+    "sort": {
+      "sortByDate": "Seřaď dle datumu",
+      "sortByAmount": "Seřaď dle částky"
+    }
   }
 }

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store/configureStore";
 import { TransactionListItem } from "./TransactionListItem";
 import { Link, useHistory } from "react-router-dom";
-import { TransactionsState } from "../actions/transactions";
 import row from "react-bootstrap/row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -21,35 +20,9 @@ import {
   setTextFilter,
   resetFilters,
 } from "../actions/filters";
-import "../locales/numeral";
-import numeral from "numeral";
 import { Summary } from "./Summary";
-import { database, firebase } from "../firebase/firebase";
-
-export interface FilterFormInputs {
-  text: string;
-  types: string;
-  amount: number;
-  from: string | undefined;
-  to: string | undefined;
-}
-
-export interface UseStateVariables {
-  transactions: [object];
-  filters: object;
-  type: string;
-  from: number;
-  to: number;
-  transactionsSumTotalFiltered: number;
-  incomesSumTotalFiltered: number;
-  expensesSumTotalFiltered: number;
-  transactionsCountTotalFiltered: number;
-  incomesCountTotalFiltered: number;
-  expensesCountTotalFiltered: number;
-  transactionsCount: number;
-  incomesCount: number;
-  expensesCount: number;
-}
+import { database } from "../firebase/firebase";
+import { TransactionState } from "../actions/transactions";
 
 function parseDate(str: any, format: any, locale: any) {
   const parsed = dateFnsParse(str, format, new Date(), { locale });
@@ -63,7 +36,12 @@ function formatDate(date: any, format: any, locale: any) {
   return dateFnsFormat(date, format, { locale });
 }
 
+interface DocState {
+  id: string;
+}
+
 export const TransactionsListPage = () => {
+  console.log("bum");
   //localization
   const { t, i18n } = useTranslation();
   const FORMAT = "dd.MM.yyyy";
@@ -91,60 +69,51 @@ export const TransactionsListPage = () => {
   //redux consts
   const history = useHistory();
   const dispatch = useDispatch();
-
-  // const transactions = useSelector(
-  //   (state: RootState) => state.transactionsReducer
-  // );
   const filters = useSelector((state: RootState) => state.filtersReducer);
   const authenticationInfo = useSelector(
     (state: RootState) => state.authsReducer
   );
 
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState<TransactionState[]>([]);
 
   const [filteredTransactions, setFilterTransactions] = useState<
-    UseStateVariables
-  >(transactions);
-  const [type, setFilterType] = useState<UseStateVariables | "">("");
-  const [text, setFilterText] = useState<UseStateVariables | "">("");
+    TransactionState[]
+  >([]);
+
+  const [type, setFilterType] = useState<string>("");
+  const [text, setFilterText] = useState<string>("");
   const [sort, bySort] = useState<"date" | "amount">("date");
-  const [from, setFromState] = useState<UseStateVariables | undefined>(
-    undefined
+  const [from, setFromState] = useState<Date | undefined>(
+    new Date(new Date().getFullYear(), new Date().getMonth(), 1)
   );
-  const [to, setToState] = useState<UseStateVariables | undefined>(undefined);
+  const [to, setToState] = useState<Date | undefined>(new Date());
   const [
     transactionsSumTotalFiltered,
     callculateTransactionsSumTotalFiltered,
-  ] = useState<UseStateVariables>(0);
+  ] = useState<number>(0);
   const [incomesSumTotalFiltered, callculateIncomesSumTotalFiltered] = useState<
-    UseStateVariables
-  >();
+    number
+  >(0);
   const [
     expensesSumTotalFiltered,
     callculateExpensesSumTotalFiltered,
-  ] = useState<UseStateVariables>(0);
+  ] = useState<number>(0);
   const [
     transactionsCountTotalFiltered,
     callculateTransactionsCountTotalFiltered,
-  ] = useState<UseStateVariables | 0>(0);
+  ] = useState<number>(0);
   const [
     incomesCountTotalFiltered,
     callculateIncomesCountTotalFiltered,
-  ] = useState<UseStateVariables>(0);
+  ] = useState<number>(0);
   const [
     expensesCountTotalFiltered,
     callculateExpensesCountTotalFiltered,
-  ] = useState<UseStateVariables>(0);
+  ] = useState<number>(0);
 
-  const [transactionsCount, callculateTransactionsCount] = useState<
-    UseStateVariables
-  >(0);
-  const [incomesCount, callculateIncomesCount] = useState<
-    UseStateVariables | 0
-  >(0);
-  const [expensesCount, callculateExpensesCount] = useState<UseStateVariables>(
-    0
-  );
+  const [transactionsCount, callculateTransactionsCount] = useState<number>(0);
+  const [incomesCount, callculateIncomesCount] = useState<number>(0);
+  const [expensesCount, callculateExpensesCount] = useState<number>(0);
 
   //Day Picker consts and functions
   const modifiers = { start: from, end: to };
@@ -159,57 +128,40 @@ export const TransactionsListPage = () => {
   const addNewTransaction = () => {
     history.push("/add_transaction/");
   };
-  useEffect(() => {
-    const transactionList = database
-      .collection(authenticationInfo.uid)
-      .onSnapshot((snapshot) => {
-        const allTransactions = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
 
-        setTransactions(allTransactions);
-        console.log(allTransactions);
-      });
-    return () => {
-      transactionList();
-      console.log(transactionList());
-    };
+  const setTransactionsList = async () => {
+    const transactionsCollection = database.collection(authenticationInfo.uid);
+    const snapshot = await transactionsCollection.get();
+    const transactionArray = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    //@ts-ignore
+    setTransactions(transactionArray);
+  };
+
+  useEffect(() => {
+    setTransactionsList();
   }, []);
+
   //Filters
   useEffect(() => {
-    const allTransactions = [];
-    const transactionList = database
-      .collection(authenticationInfo.uid)
-      .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          allTransactions.push(doc.data());
-        });
-      });
-
-    setTransactions(transactionList);
-
     let result = transactions;
 
     if (filters.types === "expense") {
-      result = result.filter(function (transaction) {
+      result = result.filter(function (transaction: TransactionState) {
         return transaction.type === "expense";
       });
     }
 
     if (filters.types === "income") {
-      result = result.filter(function (transaction) {
+      result = result.filter(function (transaction: TransactionState) {
         return transaction.type === "income";
       });
     }
 
-    if (filters.types === "") {
-      result = result;
-    }
-
     if (filters.text !== "") {
-      result = result.filter(function (transaction) {
+      result = result.filter(function (transaction: TransactionState) {
         return transaction.description
           .toLowerCase()
 
@@ -218,80 +170,88 @@ export const TransactionsListPage = () => {
     }
 
     if (filters.sortBy === "amount") {
-      result = result.sort((a: TransactionsState, b: TransactionsState) => {
-        return a.amount > b.amount ? 1 : -1;
+      result = result.sort((a: TransactionState, b: TransactionState) => {
+        return a.amount < b.amount ? 1 : -1;
       });
     }
 
     if (filters.sortBy === "date") {
-      result = result.sort((a: TransactionsState, b: TransactionsState) => {
-        return a.createdAt > b.createdAt ? 1 : -1;
+      result = result.sort((a: TransactionState, b: TransactionState) => {
+        return a.createdAt < b.createdAt ? 1 : -1;
       });
     }
 
     if (filters.from) {
-      result = result.filter(function (transaction) {
+      result = result.filter(function (transaction: TransactionState) {
         return transaction.createdAt >= Date.parse(filters.from);
       });
     }
 
     if (filters.to) {
-      result = result.filter(function (transaction) {
+      result = result.filter(function (transaction: TransactionState) {
         return transaction.createdAt <= Date.parse(filters.to);
       });
     }
     setFilterTransactions(result);
 
     const transactionsTotalFiltered = result.reduce(
-      (sum, transaction) => sum + transaction.amount,
+      (sum: number, transaction: TransactionState) => sum + transaction.amount,
       0
     );
-    callculateTransactionsSumTotalFiltered(
-      numeral(transactionsTotalFiltered).format("$0,00.00")
-    );
+    callculateTransactionsSumTotalFiltered(transactionsTotalFiltered);
     const incomesTotalFiltered = result
-      .filter(function (transaction) {
+      .filter(function (transaction: TransactionState) {
         return transaction.type === "income";
       })
-
-      .reduce((sum, income) => sum + income.amount, 0);
-    callculateIncomesSumTotalFiltered(
-      numeral(incomesTotalFiltered).format("$0,00.00")
-    );
+      .reduce(
+        (sum: number, income: TransactionState) => sum + income.amount,
+        0
+      );
+    callculateIncomesSumTotalFiltered(incomesTotalFiltered);
     const expensesTotalFiltered = result
-      .filter(function (transaction) {
+      .filter(function (transaction: TransactionState) {
         return transaction.type === "expense";
       })
-
-      .reduce((sum, expense) => sum + expense.amount, 0);
-    callculateExpensesSumTotalFiltered(
-      numeral(expensesTotalFiltered).format("$0,00.00")
-    );
+      .reduce(
+        (sum: number, expense: TransactionState) => sum + expense.amount,
+        0
+      );
+    callculateExpensesSumTotalFiltered(expensesTotalFiltered);
     const transactionsCountFiltered = result.length;
     callculateTransactionsCountTotalFiltered(transactionsCountFiltered);
-    const incomesCountFiltered = result.filter(function (transaction) {
+    const incomesCountFiltered = result.filter(function (
+      transaction: TransactionState
+    ) {
       return transaction.type === "income";
     }).length;
     callculateIncomesCountTotalFiltered(incomesCountFiltered);
-    const expensesCountFiltered = result.filter(function (transaction) {
+    const expensesCountFiltered = result.filter(function (
+      transaction: TransactionState
+    ) {
       return transaction.type === "expense";
     }).length;
     callculateExpensesCountTotalFiltered(expensesCountFiltered);
 
     const transactionsCountTotal = transactions.length;
+
     callculateTransactionsCount(transactionsCountTotal);
 
-    const incomesCountTotal = transactions.filter(function (transaction) {
+    const incomesCountTotal = transactions.filter(function (
+      transaction: TransactionState
+    ) {
       return transaction.type === "income";
     }).length;
 
     callculateIncomesCount(incomesCountTotal);
 
-    const expensesCountTotal = transactions.filter(function (transaction) {
+    const expensesCountTotal = transactions.filter(function (
+      transaction: TransactionState
+    ) {
       return transaction.type === "expense";
     }).length;
     callculateExpensesCount(expensesCountTotal);
-  }, [filters]);
+  }, [filters, transactions]);
+
   //Action functions
   const getTransactionToEdit = (e: any, id: any) => {
     e.preventDefault();
@@ -299,9 +259,7 @@ export const TransactionsListPage = () => {
   };
   const onClickReset = () => {
     dispatch(resetFilters());
-
     setToState(undefined);
-
     setFromState(undefined);
     setFilterType("");
     setFilterText("");
@@ -352,9 +310,13 @@ export const TransactionsListPage = () => {
               value={type}
               className="transactions-list__filters--first-row-input"
             >
-              <option value="">All transactions</option>
-              <option value="income">Income</option>
-              <option value="expense">Expense</option>
+              <option value="">
+                {t("filters.typeSelect.allTransactions")}
+              </option>
+              <option value="income">{t("filters.typeSelect.incomes")}</option>
+              <option value="expense">
+                {t("filters.typeSelect.expenses")}
+              </option>
             </Form.Control>
           </Col>
 
@@ -363,7 +325,7 @@ export const TransactionsListPage = () => {
               className=""
               type="text"
               value={text}
-              placeholder="filter by description"
+              placeholder={t("filters.textFilter")}
               onChange={(e: any) =>
                 onTypingSetDescriptionFilter(e.target.value)
               }
@@ -385,7 +347,6 @@ export const TransactionsListPage = () => {
                 style: { width: "100%" },
               }}
               dayPickerProps={{
-                disabledDays: { after: to },
                 toMonth: to,
                 months: MONTHS,
                 weekdaysShort: WEEKDAYS_SHORT,
@@ -407,7 +368,6 @@ export const TransactionsListPage = () => {
               }}
               onDayChange={(day: any) => onChangeSetTo(day)}
               dayPickerProps={{
-                disabledDays: { before: from },
                 month: from,
                 modifiers,
                 fromMonth: from,
@@ -421,11 +381,11 @@ export const TransactionsListPage = () => {
               className="sorting"
               onChange={(e: any) => onChoiceSetSorting(e.target.value)}
               as="select"
-              defaultValue="Choose..."
+              defaultValue={"date"}
               value={sort}
             >
-              <option value="amount">Sort By Amount</option>
-              <option value="date">Sort By Date</option>
+              <option value="amount">{t("filters.sort.sortByAmount")}</option>
+              <option value="date">{t("filters.sort.sortByDate")}</option>
             </Form.Control>
           </Col>
           <Col className="transactions-list__filters--second-row reset" sm="1">
@@ -433,7 +393,7 @@ export const TransactionsListPage = () => {
           </Col>
         </Form.Group>
       </Form>
-      {filteredTransactions.map((transaction: TransactionsState) => (
+      {filteredTransactions.map((transaction: TransactionState) => (
         <Link
           onClick={(e) => {
             getTransactionToEdit(e, transaction.id);
