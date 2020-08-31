@@ -10,7 +10,6 @@ import { store, persistor } from "./store/configureStore";
 import { LoadingPage } from "../src/components/LoadingPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { PersistGate } from "redux-persist/integration/react";
-import { firebase } from "../src/firebase/firebase";
 
 ReactDOM.render(<LoadingPage />, document.getElementById("root"));
 
