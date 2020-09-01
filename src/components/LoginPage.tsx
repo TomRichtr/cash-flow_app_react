@@ -130,14 +130,11 @@ export const LoginPage = () => {
             </Form.Group>
             {error}
             <Form.Group className="log-in__buttons">
-              <Button
-                className="log-in__button-1"
-                variant="primary"
-                type="submit"
-              >
+              <Button className="button" variant="primary" type="submit">
                 {t("login.login")}
               </Button>
               <Button
+                className="button"
                 variant="danger"
                 onClick={(e: any) => handleGoogleLogin(e)}
               >
@@ -149,7 +146,7 @@ export const LoginPage = () => {
             {t("login.registration")}
           </Link>
           <Link
-            className="register-link bottom"
+            className="reset-password-link"
             to=""
             onClick={() => setDisplayResetPassword(true)}
           >
@@ -158,7 +155,7 @@ export const LoginPage = () => {
         </div>
       ) : (
         <div className="l-background__box">
-          <div className="l-background__box title">
+          <div className="login-title">
             <span>C</span>A<span>S</span>H<span> F</span>L<span>O</span>W
           </div>
           <Form.Group controlId="formBasicEmail">
@@ -173,7 +170,7 @@ export const LoginPage = () => {
           </Form.Group>
           <Form.Group className="log-in__buttons">
             <Button
-              className="log-in__button-1"
+              className="button"
               variant="warning"
               type="submit"
               onClick={() => resetPassword()}

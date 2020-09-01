@@ -6,6 +6,8 @@
   },
   "summary": {
     "no-transactions": "No transactions are listed.",
+    "no-expenses": "No expenses are listed.",
+    "no-incomes": "No incomes are listed.",
     "sum-transactions": "Total balance is <strong>{{transactionsSumTotalFiltered}}</strong>, number of transactions is <strong>{{transactionsCountTotalFiltered}}</strong> and <strong>{{hiddenTransactions}}</strong> transactions it`s hidden.",
     "sum-incomes": "Total incomes are <strong>{{incomesSumTotalFiltered}}</strong>, number of incomes is <strong>{{incomesCountTotalFiltered}}</strong> and <strong>{{hiddenIncomes}}</strong> incomes it`s hidden.",
     "sum-expenses": "Total expenses are <strong>{{expensesSumTotalFiltered}}</strong>, number of expenses is <strong>{{expensesCountTotalFiltered}}</strong> and <strong>{{hiddenExpenses}}</strong> expenses it`s hidden."

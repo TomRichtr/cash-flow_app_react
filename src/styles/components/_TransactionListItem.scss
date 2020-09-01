@@ -124,3 +124,10 @@
     margin-top: $s-size;
   }
 }
+
+.add-transaction-button {
+  min-width: 170px;
+  @media (max-width: $desktop-breakpoint) {
+    width: 100%;
+  }
+}

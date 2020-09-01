@@ -17,6 +17,7 @@ import moment from "moment";
 import { database } from "../firebase/firebase";
 import { v4 as uuidv4 } from "uuid";
 import { DeletionModal } from "./DeletionModal";
+import Button from "react-bootstrap/Button";
 
 require("moment/locale/cs");
 
@@ -297,18 +298,24 @@ export const FormPage = (props: any) => {
             </Col>
           </Form.Group>
           <div className="button-container">
-            <input className="form__button" type="submit" value="Submit" />
+            <Button
+              className="submit-button"
+              type="submit"
+              value="Submit"
+              variant="success"
+            >
+              Submit
+            </Button>
 
-            <button
+            <Button
+              variant="danger"
               className={
-                props.match.params.id === undefined
-                  ? "hidden"
-                  : "form__button delete"
+                props.match.params.id === undefined ? "hidden" : "button delete"
               }
               onClick={() => setModal(true)}
             >
               Delete
-            </button>
+            </Button>
           </div>
         </Form>
       )}

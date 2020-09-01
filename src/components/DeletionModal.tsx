@@ -39,6 +39,7 @@ export const DeletionModal = (props: any) => {
         <p>{t("modal.warningSentence")}</p>
         <div className="modal-box-buttons">
           <Button
+            className="back-to-edit-modal"
             variant="success"
             onClick={(e) => {
               getTransactionToEdit(e, props.id);
@@ -46,7 +47,11 @@ export const DeletionModal = (props: any) => {
           >
             {t("modal.back")}
           </Button>
-          <Button variant="danger" onClick={onDeleteClick}>
+          <Button
+            variant="danger"
+            onClick={onDeleteClick}
+            className="delete-modal"
+          >
             {t("modal.delete")}
           </Button>
         </div>

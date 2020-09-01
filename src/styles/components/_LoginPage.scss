@@ -20,18 +20,16 @@
 }
 
 .log-in__buttons {
-  display: flex;
-  justify-content: space-around;
-  margin-top: $l-size;
+  display: inline-block;
+  width: 100%;
 }
 
 .register-link {
   text-align: center;
   display: block;
-}
-
-.log-in__button-1 {
-  width: 159.083px;
+  @media (max-width: $desktop-breakpoint) {
+    margin-top: $s-size;
+  }
 }
 
 .register-link.bottom {
@@ -55,5 +53,17 @@
   padding-bottom: $s-size;
   span {
     color: $red-color;
+  }
+}
+
+.reset-password-link {
+  text-align: center;
+  display: block;
+}
+
+.add-transaction-button {
+  min-width: 170px;
+  @media (max-width: $desktop-breakpoint) {
+    width: 100%;
   }
 }

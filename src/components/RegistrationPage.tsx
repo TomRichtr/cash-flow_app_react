@@ -69,7 +69,7 @@ export const RegistrationPage = () => {
         </button>
       </div>
       <div className="l-background__box">
-        <div className="l-background__box title">
+        <div className="login-title">
           <span>C</span>A<span>S</span>H<span> F</span>L<span>O</span>W
         </div>
         <Form onSubmit={(e: any) => handleForm(e)}>
@@ -106,11 +106,7 @@ export const RegistrationPage = () => {
           </Form.Group>
 
           <Form.Group className="log-in__buttons">
-            <Button
-              className="log-in__button-1"
-              variant="primary"
-              type="submit"
-            >
+            <Button className="button" variant="primary" type="submit">
               {t("login.SignUp")}
             </Button>
           </Form.Group>

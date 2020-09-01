@@ -5,10 +5,12 @@
     "log-out": "Odhlaš se"
   },
   "summary": {
-    "no-transactions": "Neeviduješ žádné transakce.",
-    "sum": "Váš balance je <strong>{{transactionsSumTotalFiltered}}</strong>, příčemž Vaše celkové příjmy jsou <strong>{{incomesSumTotalFiltered}}</strong> a Vaše celkové výdaje jsou <strong>{{expensesSumTotalFiltered}}</strong>.",
-    "count": "Váš počet transakcí je <strong>{{transactionsCountTotalFiltered}}</strong>, přičemž Vaš počet příjmů je <strong>{{incomesCountTotalFiltered}}</strong> a Vaš počet výdajů je <strong>{{expensesCountTotalFiltered}}</strong>.",
-    "hidden": "Je schováno <strong>{{hiddenTransactions}}</strong> transakcí, přičemž počet schovaných příjmů je <strong>{{hiddenIncomes}}</strong> a počet schováných výdajů je <strong>{{hiddenExpenses}}</strong>."
+    "no-transactions": "Neevidujete žádné transakce.",
+    "no-expenses": "Neevidujete žádné výdaje.",
+    "no-incomes": "Neevidujete žádné příjmy.",
+    "sum-transactions": "Balance je <strong>{{transactionsSumTotalFiltered}}</strong>, počet transakcí je <strong>{{transactionsCountTotalFiltered}}</strong> a <strong>{{hiddenTransactions}}</strong> transakcí je skryto.",
+    "sum-incomes": "Příjmy jsou <strong>{{incomesSumTotalFiltered}}</strong>, počet příjmů je <strong>{{incomesCountTotalFiltered}}</strong> a <strong>{{hiddenIncomes}}</strong> příjmů je skryto.",
+    "sum-expenses": "Výdaje jsou <strong>{{expensesSumTotalFiltered}}</strong>, počet výdajů je <strong>{{expensesCountTotalFiltered}}</strong> a <strong>{{hiddenExpenses}}</strong> výdajů je skryto."
   },
   "404": {
     "title": "Tato stránka neexistuje. Pokračujte prosím kliknutím na odkaz níže.",

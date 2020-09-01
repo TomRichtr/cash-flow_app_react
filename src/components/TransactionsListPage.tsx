@@ -23,6 +23,7 @@ import {
 import { Summary } from "./Summary";
 import { database } from "../firebase/firebase";
 import { TransactionState } from "../actions/transactions";
+import Button from "react-bootstrap/Button";
 
 function parseDate(str: any, format: any, locale: any) {
   const parsed = dateFnsParse(str, format, new Date(), { locale });
@@ -41,7 +42,6 @@ interface DocState {
 }
 
 export const TransactionsListPage = () => {
-  console.log("bum");
   //localization
   const { t, i18n } = useTranslation();
   const FORMAT = "dd.MM.yyyy";
@@ -294,14 +294,15 @@ export const TransactionsListPage = () => {
         incomesCount={incomesCount}
         expensesCount={expensesCount}
       />
-      <button
+      <Button
+        variant="success"
         onClick={() => {
           addNewTransaction();
         }}
-        className="dashboard__button"
+        className="add-transaction-button"
       >
         {t("buttons.add-transaction")}
-      </button>
+      </Button>
       <Form className="transactions-list__filters">
         <Form.Group as={row}>
           <Col sm="4" className="transactions-list__filters--first-row">
@@ -390,18 +391,20 @@ export const TransactionsListPage = () => {
               <option value="date">{t("filters.sort.sortByDate")}</option>
             </Form.Control>
           </Col>
-          <Col className="transactions-list__filters--second-row reset" sm="2">
-            <button
-              className="reset-link"
+          <Col sm="2">
+            <Button
+              variant="secondary"
+              className="reset"
               onClick={(e: any) => onClickReset(e)}
             >
               Reset
-            </button>
+            </Button>
           </Col>
         </Form.Group>
       </Form>
       {filteredTransactions.map((transaction: TransactionState) => (
         <Link
+          key={transaction.id}
           onClick={(e) => {
             getTransactionToEdit(e, transaction.id);
           }}

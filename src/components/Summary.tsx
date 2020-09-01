@@ -39,8 +39,13 @@ export const Summary = (props: any) => {
       </p>
       <p
         className={
-          formattedTransactionsCount > 0 ? "summary__first-row" : "hidden"
+          formattedTransactionsCount === 0 ? "summary__first-row" : "hidden"
         }
+      >
+        {t("summary.no-transactions")}
+      </p>
+      <p
+        className={formattedIncomesCount > 0 ? "summary__first-row" : "hidden"}
       >
         <Trans
           i18nKey="summary.sum-incomes"
@@ -56,8 +61,15 @@ export const Summary = (props: any) => {
       </p>
       <p
         className={
-          formattedTransactionsCount > 0 ? "summary__first-row" : "hidden"
+          formattedIncomesCount === 0 && formattedTransactionsCount !== 0
+            ? "summary__first-row"
+            : "hidden"
         }
+      >
+        {t("summary.no-incomes")}
+      </p>
+      <p
+        className={formattedExpensesCount > 0 ? "summary__first-row" : "hidden"}
       >
         <Trans
           i18nKey="summary.sum-expenses"
@@ -70,6 +82,15 @@ export const Summary = (props: any) => {
           }}
           components={{ bold: <strong /> }}
         ></Trans>
+      </p>
+      <p
+        className={
+          formattedExpensesCount === 0 && formattedTransactionsCount !== 0
+            ? "summary__first-row"
+            : "hidden"
+        }
+      >
+        {t("summary.no-expenses")}
       </p>
     </div>
   );
