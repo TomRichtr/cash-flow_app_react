@@ -37,10 +37,6 @@ function formatDate(date: any, format: any, locale: any) {
   return dateFnsFormat(date, format, { locale });
 }
 
-interface DocState {
-  id: string;
-}
-
 export const TransactionsListPage = () => {
   //localization
   const { t, i18n } = useTranslation();
