@@ -79,10 +79,8 @@ export const TransactionsListPage = () => {
   const [type, setFilterType] = useState<string>("");
   const [text, setFilterText] = useState<string>("");
   const [sort, bySort] = useState<"date" | "amount">("date");
-  const [from, setFromState] = useState<Date | undefined>(
-    new Date(new Date().getFullYear(), new Date().getMonth(), 1)
-  );
-  const [to, setToState] = useState<Date | undefined>(new Date());
+  const [from, setFromState] = useState<Date | undefined>(undefined);
+  const [to, setToState] = useState<Date | undefined>(undefined);
   const [
     transactionsSumTotalFiltered,
     callculateTransactionsSumTotalFiltered,
@@ -138,6 +136,8 @@ export const TransactionsListPage = () => {
 
   useEffect(() => {
     setTransactionsList();
+    setFromState(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
+    setToState(new Date());
   }, []);
 
   //Filters

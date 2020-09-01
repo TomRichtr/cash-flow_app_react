@@ -157,12 +157,6 @@ export const FormPage = (props: any) => {
     }
   };
 
-  const onDeleteClick = () => {
-    // dispatch(removeTransaction(props.match.params.id));
-    database.collection(uid).doc(props.match.params.id).delete();
-    history.push("/dashboard");
-  };
-
   useEffect(() => {
     const setEditTransaction = async () => {
       if (props.match.params.id !== undefined) {
