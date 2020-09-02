@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store/configureStore";
 import { TransactionListItem } from "./TransactionListItem";
 import { Link, useHistory } from "react-router-dom";
-import row from "react-bootstrap/row";
+import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import DayPickerInput from "react-day-picker/DayPickerInput";
@@ -300,7 +300,7 @@ export const TransactionsListPage = () => {
         {t("buttons.add-transaction")}
       </Button>
       <Form className="transactions-list__filters">
-        <Form.Group as={row}>
+        <Form.Group as={Row}>
           <Col sm="4" className="transactions-list__filters--first-row">
             <Form.Control
               onChange={(e: any) => onChoiceSetTypeFilter(e.target.value)}
@@ -331,7 +331,7 @@ export const TransactionsListPage = () => {
             />
           </Col>
         </Form.Group>
-        <Form.Group as={row}>
+        <Form.Group as={Row}>
           <Col sm="2">
             <DayPickerInput
               clickUnselectsDay

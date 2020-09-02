@@ -1,6 +1,6 @@
 import Col from "react-bootstrap/Col";
 import React, { useEffect, useState } from "react";
-import row from "react-bootstrap/row";
+import Row from "react-bootstrap/Row";
 import { RootState } from "../store/configureStore";
 import { useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
@@ -188,7 +188,7 @@ export const FormPage = (props: any) => {
             props.match.params.id === undefined ? onSubmitNew : onSubmitEdit
           )}
         >
-          <Form.Group as={row} className="form__type--container">
+          <Form.Group as={Row} className="form__type--container">
             <Form.Label column sm="2">
               {t("form.type")}
             </Form.Label>
@@ -209,7 +209,7 @@ export const FormPage = (props: any) => {
               {errors.type && "This is required field."}
             </Col>
           </Form.Group>
-          <Form.Group as={row} className="form__amount--container">
+          <Form.Group as={Row} className="form__amount--container">
             <Form.Label column sm="2">
               {t("form.amount")}
             </Form.Label>
@@ -230,7 +230,7 @@ export const FormPage = (props: any) => {
               )}
             </Col>
           </Form.Group>
-          <Form.Group as={row}>
+          <Form.Group as={Row}>
             <Form.Label column sm="2">
               {t("form.date")}
             </Form.Label>
@@ -264,7 +264,7 @@ export const FormPage = (props: any) => {
             </Col>
           </Form.Group>
 
-          <Form.Group as={row} className="form__description--container">
+          <Form.Group as={Row} className="form__description--container">
             <Form.Label column sm="2">
               {t("form.description")}
             </Form.Label>
@@ -277,7 +277,7 @@ export const FormPage = (props: any) => {
               {errors.description && "This is required field."}
             </Col>
           </Form.Group>
-          <Form.Group as={row}>
+          <Form.Group as={Row}>
             <Form.Label column sm="2">
               {t("form.note")}
             </Form.Label>
